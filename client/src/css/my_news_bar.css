@@ -1,0 +1,31 @@
+.imageInNewsBar {
+    width: 20rem;
+    height: 13.5rem;
+    padding: 0.5rem;
+    border: #e3e3e3 solid;
+    border-width: 1px;
+}
+
+.containerInNewsBar {
+    padding: 2rem;
+}
+
+.descInNewsBar {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    text-align: left;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+}
+
+.outerCardInNewsBar {
+    margin: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.outerCardInNewsBar:hover {
+    box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+}
