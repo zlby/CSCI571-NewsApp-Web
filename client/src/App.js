@@ -20,6 +20,7 @@ class App extends Component{
         };
         this.callAPI = this.callAPI.bind(this);
         this.changeSource = this.changeSource.bind(this);
+        this.searchPage = this.searchPage.bind(this);
     }
 
     changeSource() {
@@ -30,8 +31,14 @@ class App extends Component{
         })
     }
 
-    callAPI(url) {
-        // alert(url);
+    searchPage(keyword) {
+        if (this.state.isGuardian) {
+            const url = 'http://localhost:9000/guardianapi/search/' + keyword;
+            this.callAPI(url, 3);
+        }
+    }
+
+    callAPI(url, t) {
         this.setState({
             loading: true,
         });
@@ -39,25 +46,24 @@ class App extends Component{
             .then(resp =>
                 this.setState((prevState) => {
                     return {
-                        type: 0,
+                        type: t,
                         cur_req: url,
                         json_data: resp.data.response,
                         loading: false,
                     }
                 }));
-        // console.log(this.state.json_data);
     }
 
 
     componentDidMount() {
-        this.callAPI('http://localhost:9000/guardianapi/');
+        this.callAPI('http://localhost:9000/guardianapi/', 0);
     }
 
 
     render() {
         return (
             <div className="App">
-                <MyNavbar fnSwitch={this.changeSource} fnSelect={this.callAPI} checked={this.state.isGuardian}/>
+                <MyNavbar renderType={this.state.type} fnSwitch={this.changeSource} fnSelect={this.callAPI} fnSearch={this.searchPage} checked={this.state.isGuardian}/>
                 {this.state.loading ?
                     <MyLoader/> :
                     <MyMainPage renderType = {this.state.type} jsonData={this.state.json_data} />
