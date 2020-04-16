@@ -11,29 +11,44 @@ let jsonObj;
 
 
 router.get('/', function(req, res) {
+    jsonObj = {};
     fetch(url_home)
         .then(res => res.text())
         .then(res => jsonObj = JSON.parse(res))
+        .then(() => res.json(jsonObj))
         .catch(err => err);
-    res.json(jsonObj);
+    // res.json(jsonObj);
 });
 
 router.get('/:category', function (req, res) {
+    jsonObj = {};
     const url_section = url_section_prefix + req.params.category + url_section_suffix;
     fetch(url_section)
         .then(res => res.text())
         .then(res => jsonObj = JSON.parse(res))
+        .then(() => res.json(jsonObj))
         .catch(err => err);
-    res.json(jsonObj);
+    // res.json(jsonObj);
 });
 
 router.get('/search/:skeyword', function (req, res) {
+    jsonObj = {};
     const url_search = url_search_prefix + req.params.skeyword + url_search_suffix;
     fetch(url_search)
         .then(res => res.text())
         .then(res => jsonObj = JSON.parse(res))
+        .then(() => res.json(jsonObj))
         .catch(err => err);
-    res.json(jsonObj);
+});
+
+router.get('/detailed/:sid(*)', function(req, res){
+    jsonObj = {};
+    const url_detail = url_section_prefix + req.params.sid + url_section_suffix;
+    fetch(url_detail)
+        .then(res => res.text())
+        .then(res => jsonObj = JSON.parse(res))
+        .then(() => res.json(jsonObj))
+        .catch(err => err);
 });
 
 module.exports = router;

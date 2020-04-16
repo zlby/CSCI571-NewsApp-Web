@@ -24,12 +24,22 @@ function MySectionTag(props) {
         case 'guardian':
             mycolor = '#14284a';
             break;
-        default:
+        case 'nytimes':
             mycolor = '#dddddd';
+            break;
+        default:
+            mycolor = '#6e757c';
             break;
     }
     return (
-        <div style={{backgroundColor: mycolor, width: 'fit-content', borderRadius: '5px', textAlign: 'center', paddingLeft: '5px', paddingRight: '5px'}}>
+        <div style={{
+            backgroundColor: mycolor,
+            width: 'fit-content',
+            borderRadius: '5px',
+            textAlign: 'center',
+            paddingLeft: '5px',
+            paddingRight: '5px'
+        }}>
             <p style={{fontWeight: 'bold'}}>{props.section.toUpperCase()} </p>
         </div>
     )

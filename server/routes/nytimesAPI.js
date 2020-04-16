@@ -12,8 +12,9 @@ router.get('/', function(req, res) {
     fetch(url_home)
         .then(res => res.text())
         .then(res => jsonObj = JSON.parse(res))
+        .then(() => res.json(jsonObj))
         .catch(err => err);
-    res.json(jsonObj);
+    // res.json(jsonObj);
 });
 
 router.get('/:category', function (req, res) {
@@ -21,8 +22,9 @@ router.get('/:category', function (req, res) {
     fetch(url_section)
         .then(res => res.text())
         .then(res => jsonObj = JSON.parse(res))
+        .then(() => res.json(jsonObj))
         .catch(err => err);
-    res.json(jsonObj);
+    // res.json(jsonObj);
 });
 
 module.exports = router;
