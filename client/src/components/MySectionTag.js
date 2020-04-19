@@ -2,7 +2,10 @@ import React from "react";
 
 function MySectionTag(props) {
     let mycolor;
-    switch (props.section) {
+    let sect = props.section;
+    if (sect === 'sport')
+        sect = 'sports';
+    switch (sect) {
         case 'world':
             mycolor = '#7c4eff';
             break;
@@ -40,7 +43,7 @@ function MySectionTag(props) {
             paddingLeft: '5px',
             paddingRight: '5px'
         }}>
-            <p style={{fontWeight: 'bold'}}>{props.section.toUpperCase()} </p>
+            <p style={{fontWeight: 'bold'}}>{sect.toUpperCase()} </p>
         </div>
     )
 }

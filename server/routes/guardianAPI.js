@@ -22,13 +22,13 @@ router.get('/', function(req, res) {
 
 router.get('/:category', function (req, res) {
     jsonObj = {};
-    const url_section = url_section_prefix + req.params.category + url_section_suffix;
+    const ca = req.params.category === 'sports' ? 'sport' : req.params.category;
+    const url_section = url_section_prefix + ca + url_section_suffix;
     fetch(url_section)
         .then(res => res.text())
         .then(res => jsonObj = JSON.parse(res))
         .then(() => res.json(jsonObj))
         .catch(err => err);
-    // res.json(jsonObj);
 });
 
 router.get('/search/:skeyword', function (req, res) {

@@ -11,13 +11,16 @@ import MySectionTag from "./components/MySectionTag";
 import MyTestCompo from "./components/MyTestCompo";
 import MyArticalPage from "./components/MyArticalPage";
 import MyHomePage from "./components/MyHomePage";
+import MySearchPage from "./components/MySearchPage";
+import MyFavoritePage from "./components/MyFavoritePage";
 
 
 class App extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            source: 'g',
+            source: '',
+            keyword: '',
             loading: true,
         };
         // this.changeStateSync = this.changeStateSync.bind(this);
@@ -35,10 +38,14 @@ class App extends Component{
     //     })
     // }
 
-    // searchPage(keyword) {
-    //     const url = 'http://localhost:9000/guardianapi/search/' + keyword;
-    //     this.callAPI(url, 3);
-    // }
+    // searchPage = (keyword) => {
+    //     this.setState({loading: true});
+    //     this.setState({
+    //         keyword: keyword
+    //     }, () => {
+    //         this.setState({loading: false});
+    //     })
+    // };
 
 
 
@@ -73,7 +80,7 @@ class App extends Component{
         }
         else {
             this.setState({
-                source: 'y'
+                source: 'g'
             }, () => {
                 this.setState({
                     loading: false
@@ -85,7 +92,15 @@ class App extends Component{
 
 
     componentDidMount() {
-        this.setState({loading: false});
+        if (typeof(Storage) === "undefined" || localStorage.getItem("source") === null) {
+            this.setState({loading: false, source: 'g'});
+        }
+        else {
+            this.setState({loading: false, source: localStorage.getItem("source")});
+        }
+        if (localStorage.getItem("favo") === null) {
+            localStorage.setItem("favo", JSON.stringify({}));
+        }
     }
 
     // componentDidUpdate(prevProps, prevState, snapshot) {
@@ -107,15 +122,14 @@ class App extends Component{
                         <Route path={"/home/:section"}>
                             <MyHomePage source={this.state.source}/>
                         </Route>
-                        {/*<Route path={"/search/:keyword"}>*/}
-                        {/*    <MySearchPage />*/}
-                        {/*</Route>*/}
+                        <Route path={"/search/:keyword"} render={ props => <MySearchPage {...props} />} />
+
                         <Route path={"/article/:id"}>
                             <MyArticalPage />
                         </Route>
-                        {/*<Route path={"/"}>*/}
-                        {/*    <MyFavoritePage />*/}
-                        {/*</Route>*/}
+                        <Route path={"/favorite"}>
+                            <MyFavoritePage />
+                        </Route>
                     </Switch>
                 }
             </div>

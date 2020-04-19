@@ -11,6 +11,7 @@ import {
     TwitterIcon,
     TwitterShareButton
 } from "react-share";
+import {Redirect} from "react-router-dom";
 
 
 class MyNewsCard extends React.Component {
@@ -18,11 +19,12 @@ class MyNewsCard extends React.Component {
         super();
         this.state = {
             show: false,
+            redirect: false,
         }
     }
 
     handleDetail = () => {
-        this.props.fnDetail(this.props.newsInfo.newsid, this.props.newsInfo.from);
+        this.setState({redirect: true});
     };
 
     handleShow = (event) => {
@@ -35,8 +37,17 @@ class MyNewsCard extends React.Component {
     };
 
     render() {
+        let myredirect = <></>;
+        if (this.state.redirect) {
+            this.setState({redirect: false}, () => {
+
+                }
+            );
+            myredirect = <Redirect to={'/article/' + encodeURIComponent(this.props.newsInfo.newsid)} />
+        }
         return (
             <>
+                {myredirect}
                 <Container className={"myNewsCardContainer"} onClick={this.handleDetail}>
                     <div className={"myNewsCardTitleDiv"}>
                         {this.props.newsInfo.title}<MdShare onClick={this.handleShow}/>
@@ -70,14 +81,14 @@ class MyNewsCard extends React.Component {
                     <Modal.Body style={{justifyContent: "space-around"}}>
                         <h5 className={"modalShareVia"}>Share via</h5>
                         <div className={"modalDiv"}>
-                            <EmailShareButton url={this.props.newsInfo.url} subject={"#CSCI_571_NewsApp"}><EmailIcon
-                                size={48} round={true}/></EmailShareButton>
                             <FacebookShareButton url={this.props.newsInfo.url}
                                                  hashtag={"#CSCI_571_NewsApp"}><FacebookIcon size={48}
                                                                                              round={true}/></FacebookShareButton>
                             <TwitterShareButton url={this.props.newsInfo.url}
                                                 hashtags={["CSCI_571_NewsApp"]}><TwitterIcon size={48}
                                                                                              round={true}/></TwitterShareButton>
+                            <EmailShareButton url={this.props.newsInfo.url} subject={"#CSCI_571_NewsApp"}><EmailIcon
+                                size={48} round={true}/></EmailShareButton>
                         </div>
                     </Modal.Body>
                 </Modal>

@@ -3,8 +3,10 @@ import {Col, Container, Nav, Navbar, Row} from 'react-bootstrap';
 import Switch from 'react-switch';
 import AsyncSelect from 'react-select/async';
 import axios from 'axios';
-import {NavLink} from "react-router-dom";
+// import {withRouter} from "react-router";
+import {Redirect} from "react-router-dom"
 import "../css/my_navbar.css";
+import {MdBookmark, MdBookmarkBorder} from "react-icons/all";
 
 class MyNavbar extends React.Component {
     constructor(props) {
@@ -14,12 +16,14 @@ class MyNavbar extends React.Component {
         this.loadOptions = this.loadOptions.bind(this);
         this.state = {
             inputValue: '',
+            searched: false,
             checked: this.props.checked,
         };
     }
 
 
     handleChange() {
+        localStorage.setItem("source", localStorage.getItem("source") === 'g' ? 'n' : 'g');
         this.props.fnSwitch();
     }
 
@@ -66,12 +70,30 @@ class MyNavbar extends React.Component {
 
     handleSearch(optionSelected) {
         const keyword = optionSelected.value;
-        this.props.fnSearch(keyword, 3);
+
+        this.setState({inputValue: keyword, searched: true});
     }
 
 
     render() {
+        let myredirect = <></>;
+        if (this.state.searched) {
+            this.setState({searched: false}, () => {
+
+                }
+            );
+            myredirect = <Redirect to={'/search/' + this.state.inputValue} />
+        }
+        let mybookmark;
+        if (window.location.pathname === '/favorite') {
+            mybookmark = <MdBookmark size={36} color='white' />
+        }
+        else {
+            mybookmark = <MdBookmarkBorder size={36} color='white' />
+        }
         return (
+            <>
+                {myredirect}
             <Navbar bg="dark" variant="dark" collapseOnSelect expand="lg">
                 <div style={{width: "400px"}}>
                     <AsyncSelect
@@ -93,6 +115,7 @@ class MyNavbar extends React.Component {
                         <Nav.Link href={"/home/business"}>Business</Nav.Link>
                         <Nav.Link href={"/home/technology"}>Technology</Nav.Link>
                         <Nav.Link href={"/home/sports"}>Sports</Nav.Link>
+                        <Nav.Link href={"/favorite"}>{mybookmark}</Nav.Link>
                         <Nav.Link>NYTimes</Nav.Link>
                         <Nav.Link>
                             <Switch
@@ -107,6 +130,7 @@ class MyNavbar extends React.Component {
                 </Navbar.Collapse>
 
             </Navbar>
+                </>
         )
     }
 }
