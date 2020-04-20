@@ -32,6 +32,12 @@
     padding: 1rem;
 }
 
+.imgInNewsCard {
+    padding: 0.5rem;
+    border: #e3e3e3 solid;
+    border-width: 1px;
+}
+
 
 .modalDiv {
     width: 100%;

@@ -2,7 +2,7 @@ import React from "react";
 import '../css/my_news_card.css';
 import {Card, Container, Row, Col, Modal} from 'react-bootstrap';
 import MySectionTag from "./MySectionTag";
-import {MdShare} from "react-icons/all";
+import {MdShare, MdDelete} from "react-icons/all";
 import {
     EmailIcon,
     EmailShareButton,
@@ -12,6 +12,7 @@ import {
     TwitterShareButton
 } from "react-share";
 import {Redirect} from "react-router-dom";
+import {toast, ToastContainer, Zoom} from "react-toastify";
 
 
 class MyNewsCard extends React.Component {
@@ -32,6 +33,24 @@ class MyNewsCard extends React.Component {
         this.setState({show: true});
     };
 
+    removeFromFavo = (event) => {
+        event.stopPropagation();
+        let myFavo = JSON.parse(localStorage.getItem('favo'));
+        delete myFavo[encodeURIComponent(this.props.newsInfo.newsid)];
+        localStorage.setItem('favo', JSON.stringify(myFavo));
+        let content = 'Removing ' + this.props.newsInfo.title;
+        toast(content, {
+            className: 'myToastify',
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+        this.props.fnUpdate();
+    };
+
     handleHide = () => {
         this.setState({show: false});
     };
@@ -45,22 +64,45 @@ class MyNewsCard extends React.Component {
             );
             myredirect = <Redirect to={'/article/' + encodeURIComponent(this.props.newsInfo.newsid)} />
         }
+        let deletecompo = <></>;
+        let sourcetag = <></>;
+        if (this.props.isFavo) {
+            deletecompo = <MdDelete onClick={this.removeFromFavo}/>;
+            sourcetag = <MySectionTag section={this.props.newsInfo.from}/>
+        }
         return (
             <>
                 {myredirect}
+                <ToastContainer
+                    position="top-center"
+                    autoClose={2000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnVisibilityChange
+                    draggable
+                    pauseOnHover
+                    transition={Zoom}
+                />
                 <Container className={"myNewsCardContainer"} onClick={this.handleDetail}>
-                    <div className={"myNewsCardTitleDiv"}>
-                        {this.props.newsInfo.title}<MdShare onClick={this.handleShow}/>
-                    </div>
+
                     <Card className={"myNewsCard"}>
-                        <Card.Img variant="top" src={this.props.newsInfo.imgsrc}/>
-                        <Card.Body>
+                        <Card.Title>
+                            <div className={"myNewsCardTitleDiv"}>
+                                {this.props.newsInfo.title}<MdShare onClick={this.handleShow}/>{deletecompo}
+                            </div>
+                        </Card.Title>
+                        <Card.Img className={"imgInNewsCard"} variant="top" src={this.props.newsInfo.imgsrc}/>
+                        <Card.Body style={{paddingLeft: "0px", paddingRight: "0px"}}>
                             <Card.Text>
                                 <div>
                                     <Row>
                                         <Col><p align={"left"}>{this.props.newsInfo.date}</p></Col>
                                         <Col>
-                                            <div align={"right"}><MySectionTag section={this.props.newsInfo.section}/>
+                                            <div align={"right"}>
+                                                <MySectionTag section={this.props.newsInfo.section}/>
+                                                {sourcetag}
                                             </div>
                                         </Col>
                                     </Row>

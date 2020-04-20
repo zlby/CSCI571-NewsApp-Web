@@ -9,7 +9,7 @@ function MyNewsCardGroup(props) {
     news_list = news_list.map(item => {
         return (
             <Col xs={12} sm={12} md={3} lg={3} xl={3}>
-                <MyNewsCard newsInfo={item} fnDetail={props.fnDetail}/>
+                <MyNewsCard newsInfo={item} isFavo={props.isFavo} fnUpdate={props.fnUpdate}/>
             </Col>
         )
     });

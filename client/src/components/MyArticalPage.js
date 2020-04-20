@@ -1,8 +1,10 @@
 import React from "react";
 import {Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll'
-import {Card, Col, Container, Image, Modal, Row, Collapse} from "react-bootstrap";
+import {Card, Col, Container, Image, Modal, Row, Collapse, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {MdBookmark, MdBookmarkBorder} from "react-icons/all";
 import MySectionTag from "./MySectionTag";
+import {toast, ToastContainer, Zoom} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import {
     EmailIcon,
     EmailShareButton,
@@ -86,7 +88,17 @@ class MyArticalPage extends React.Component {
         myFavo[this.props.match.params.id] = this.state.newsInfo;
         localStorage.setItem("favo", JSON.stringify(myFavo));
         this.setState({bookmarked: true}, () => {
-            console.log(this.state.bookmarked);
+            // console.log(this.state.bookmarked);
+            let content = 'Saving ' + this.state.newsInfo.title;
+            toast(content, {
+                className: 'myToastify',
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         });
     };
 
@@ -95,7 +107,17 @@ class MyArticalPage extends React.Component {
         delete myFavo[this.props.match.params.id];
         localStorage.setItem("favo", JSON.stringify(myFavo));
         this.setState({bookmarked: false}, () => {
-            console.log(this.state.bookmarked);
+            // console.log(this.state.bookmarked);
+            let content = 'Removing ' + this.state.newsInfo.title;
+            toast(content, {
+                className: 'myToastify',
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         });
     };
 
@@ -107,10 +129,10 @@ class MyArticalPage extends React.Component {
         }
         let mybookmark;
         if (this.state.bookmarked) {
-            mybookmark = <MdBookmark size={36} color='red' onClick={this.unmarkArticle} />;
+            mybookmark = <MdBookmark size={36} color='red' onClick={this.unmarkArticle} style={{cursor: "pointer"}} />;
         }
         else {
-            mybookmark = <MdBookmarkBorder size={36} color='red' onClick={this.markArticle} />;
+            mybookmark = <MdBookmarkBorder size={36} color='red' onClick={this.markArticle} style={{cursor: "pointer"}} />;
         }
         let descstr = this.state.newsInfo.desc;
         let start = 4;
@@ -127,6 +149,19 @@ class MyArticalPage extends React.Component {
         }
         return (
             <>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={2000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnVisibilityChange
+                    draggable
+                    pauseOnHover
+                    transition={Zoom}
+                />
+
                 <div className={"divArticalPage"}>
                     <Card className={"cardArticalPage"}>
                         <h3 align={"left"}><Element name={"titleElem"}>{this.state.newsInfo.title}</Element></h3>
@@ -137,16 +172,57 @@ class MyArticalPage extends React.Component {
                             <Col style={{textAlign: "right"}}>
                                 <div className={"articleShare"}>
 
-                                    <FacebookShareButton url={this.state.newsInfo.url}
-                                                         hashtag={"#CSCI_571_NewsApp"}><FacebookIcon size={36}
-                                                                                                     round={true}/></FacebookShareButton>
-                                    <TwitterShareButton url={this.state.newsInfo.url}
-                                                        hashtags={["CSCI_571_NewsApp"]}><TwitterIcon size={36}
-                                                                                                     round={true}/></TwitterShareButton>
-                                    <EmailShareButton url={this.state.newsInfo.url}
-                                                      subject={"#CSCI_571_NewsApp"}><EmailIcon
-                                        size={36} round={true}/></EmailShareButton>
-                                    {mybookmark}
+                                    <OverlayTrigger
+                                        placement='top'
+                                        overlay={
+                                            <Tooltip>
+                                                Facebook
+                                            </Tooltip>
+                                        }
+                                    >
+                                        <FacebookShareButton url={this.state.newsInfo.url}
+                                                             hashtag={"#CSCI_571_NewsApp"}><FacebookIcon size={36}
+                                                                                                         round={true}/></FacebookShareButton>
+                                    </OverlayTrigger>{' '}
+
+                                    <OverlayTrigger
+                                        placement='top'
+                                        overlay={
+                                            <Tooltip>
+                                                Twitter
+                                            </Tooltip>
+                                        }
+                                    >
+                                        <TwitterShareButton url={this.state.newsInfo.url}
+                                                            hashtags={["CSCI_571_NewsApp"]}><TwitterIcon size={36}
+                                                                                                         round={true}/></TwitterShareButton>
+                                    </OverlayTrigger>{' '}
+
+                                    <OverlayTrigger
+                                        placement='top'
+                                        overlay={
+                                            <Tooltip>
+                                                Email
+                                            </Tooltip>
+                                        }
+                                    >
+                                        <EmailShareButton url={this.state.newsInfo.url}
+                                                          subject={"#CSCI_571_NewsApp"}><EmailIcon
+                                            size={36} round={true}/></EmailShareButton>
+                                    </OverlayTrigger>{' '}
+
+                                    <OverlayTrigger
+                                        placement='top'
+                                        overlay={
+                                            <Tooltip>
+                                                Bookmark
+                                            </Tooltip>
+                                        }
+                                    >
+                                        {mybookmark}
+                                    </OverlayTrigger>{' '}
+
+
                                 </div>
 
                             </Col>
