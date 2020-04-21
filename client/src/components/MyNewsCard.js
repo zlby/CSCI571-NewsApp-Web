@@ -68,7 +68,7 @@ class MyNewsCard extends React.Component {
         let sourcetag = <></>;
         if (this.props.isFavo) {
             deletecompo = <MdDelete onClick={this.removeFromFavo}/>;
-            sourcetag = <MySectionTag section={this.props.newsInfo.from}/>
+            sourcetag = <MySectionTag section={this.props.newsInfo.from === 'g' ? 'guardian' : 'nytimes'}/>
         }
         return (
             <>
@@ -98,7 +98,7 @@ class MyNewsCard extends React.Component {
                             <Card.Text>
                                 <div>
                                     <Row>
-                                        <Col><p align={"left"}>{this.props.newsInfo.date}</p></Col>
+                                        <Col><p align={"left"} style={{fontStyle: 'italic'}}>{this.props.newsInfo.date}</p></Col>
                                         <Col>
                                             <div align={"right"}>
                                                 <MySectionTag section={this.props.newsInfo.section}/>

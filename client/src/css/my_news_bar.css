@@ -49,6 +49,13 @@
     cursor: pointer;
 }
 
+
+@media only screen and (max-width: 718px) {
+    .outerCardInNewsBar {
+        margin: 0.5rem;
+    }
+}
+
 .modalDiv {
     width: 100%;
     height: 75px;

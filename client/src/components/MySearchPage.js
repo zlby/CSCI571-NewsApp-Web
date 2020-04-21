@@ -19,6 +19,10 @@ class MySearchPage extends React.Component{
         this.searchTwoSource(this.props.match.params.keyword);
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.searchTwoSource(nextProps.match.params.keyword);
+    }
+
     searchTwoSource(keyword) {
         this.callGuardianSearch(keyword);
         this.callNYTimesSearch(keyword);

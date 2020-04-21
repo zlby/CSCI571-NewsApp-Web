@@ -5,7 +5,7 @@ import {css} from "@emotion/core";
 function MyLoader() {
     const override = css`display: block;margin: 0 auto;`;
     return (
-        <div style={{position: "absolute", top: "50%", left: "50%"}}>
+        <div style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
             <BounceLoader css={override} color={"#2d4eca"}/>
             <h4>Loading</h4>
         </div>

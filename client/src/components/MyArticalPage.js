@@ -129,10 +129,10 @@ class MyArticalPage extends React.Component {
         }
         let mybookmark;
         if (this.state.bookmarked) {
-            mybookmark = <MdBookmark size={36} color='red' onClick={this.unmarkArticle} style={{cursor: "pointer"}} />;
+            mybookmark = <MdBookmark size={34} color='red' onClick={this.unmarkArticle} style={{cursor: "pointer"}} />;
         }
         else {
-            mybookmark = <MdBookmarkBorder size={36} color='red' onClick={this.markArticle} style={{cursor: "pointer"}} />;
+            mybookmark = <MdBookmarkBorder size={34} color='red' onClick={this.markArticle} style={{cursor: "pointer"}} />;
         }
         let descstr = this.state.newsInfo.desc;
         let start = 4;
@@ -166,10 +166,12 @@ class MyArticalPage extends React.Component {
                     <Card className={"cardArticalPage"}>
                         <h3 align={"left"}><Element name={"titleElem"}>{this.state.newsInfo.title}</Element></h3>
                         <Row>
-                            <Col style={{textAlign: "left"}}>
-                                {this.state.newsInfo.date}
+                            <Col style={{paddingBottom: "1px"}} xs={5} sm={5} md={5} lg={7} xl={7}>
+                                <div className={"articleDate"}>
+                                    {this.state.newsInfo.date}
+                                </div>
                             </Col>
-                            <Col style={{textAlign: "right"}}>
+                            <Col style={{textAlign: "right"}} xs={5} sm={5} md={5} lg={4} xl={4}>
                                 <div className={"articleShare"}>
 
                                     <OverlayTrigger
@@ -181,7 +183,7 @@ class MyArticalPage extends React.Component {
                                         }
                                     >
                                         <FacebookShareButton url={this.state.newsInfo.url}
-                                                             hashtag={"#CSCI_571_NewsApp"}><FacebookIcon size={36}
+                                                             hashtag={"#CSCI_571_NewsApp"}><FacebookIcon size={28}
                                                                                                          round={true}/></FacebookShareButton>
                                     </OverlayTrigger>{' '}
 
@@ -194,7 +196,7 @@ class MyArticalPage extends React.Component {
                                         }
                                     >
                                         <TwitterShareButton url={this.state.newsInfo.url}
-                                                            hashtags={["CSCI_571_NewsApp"]}><TwitterIcon size={36}
+                                                            hashtags={["CSCI_571_NewsApp"]}><TwitterIcon size={28}
                                                                                                          round={true}/></TwitterShareButton>
                                     </OverlayTrigger>{' '}
 
@@ -208,9 +210,12 @@ class MyArticalPage extends React.Component {
                                     >
                                         <EmailShareButton url={this.state.newsInfo.url}
                                                           subject={"#CSCI_571_NewsApp"}><EmailIcon
-                                            size={36} round={true}/></EmailShareButton>
+                                            size={28} round={true}/></EmailShareButton>
                                     </OverlayTrigger>{' '}
-
+                                </div>
+                            </Col>
+                            <Col style={{textAlign: "right"}} xs={1} sm={1} md={1} lg={1} xl={1}>
+                                <div>
                                     <OverlayTrigger
                                         placement='top'
                                         overlay={

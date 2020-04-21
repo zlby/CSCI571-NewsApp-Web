@@ -41,9 +41,9 @@ function MySectionTag(props) {
             borderRadius: '5px',
             textAlign: 'center',
             paddingLeft: '5px',
-            paddingRight: '5px'
+            paddingRight: '5px',
         }}>
-            <p style={{fontWeight: 'bold'}}>{sect.toUpperCase()} </p>
+            <p style={{fontWeight: 'bold', color: 'white'}}>{sect.toUpperCase()} </p>
         </div>
     )
 }

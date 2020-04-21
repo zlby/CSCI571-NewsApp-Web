@@ -36,6 +36,15 @@
     text-align: right;
 }
 
+.articleShare {
+    margin: auto;
+}
+
+.articleDate {
+    text-align: left;
+    font-style: italic;
+}
+
 
 .myToastify {
     color: black;
