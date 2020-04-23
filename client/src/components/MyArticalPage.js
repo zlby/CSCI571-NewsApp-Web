@@ -33,9 +33,9 @@ class MyArticalPage extends React.Component {
     }
 
     callArticlePageAPI = (id) => {
-        let url = "http://localhost:9000/guardianapi/detailed/" + decodeURIComponent(id);
+        let url = "http://54.86.70.47:9000/guardianapi/detailed/" + decodeURIComponent(id);
         if (id.indexOf('http') === 0) {
-            url = "http://localhost:9000/nytimesapi/detailed/" + decodeURIComponent(id);
+            url = "http://54.86.70.47:9000/nytimesapi/detailed/" + decodeURIComponent(id);
         }
         if (!this.state.loading) {
             this.setState({

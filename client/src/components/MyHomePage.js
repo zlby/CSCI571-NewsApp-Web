@@ -20,10 +20,10 @@ class MyHomePage extends React.Component{
         }
         let url = '';
         if (this.props.source === 'g') {
-            url = "http://localhost:9000/guardianapi/" + section;
+            url = "http://54.86.70.47:9000/guardianapi/" + section;
         }
         else {
-            url = 'http://localhost:9000/nytimesapi/' + section;
+            url = 'http://54.86.70.47:9000/nytimesapi/' + section;
         }
         if (!this.state.loading) {
             this.setState({

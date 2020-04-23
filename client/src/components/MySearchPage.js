@@ -29,7 +29,7 @@ class MySearchPage extends React.Component{
     }
 
     callGuardianSearch = (keyword) => {
-        const url = "http://localhost:9000/guardianapi/search/" + keyword;
+        const url = "http://54.86.70.47:9000/guardianapi/search/" + keyword;
         if (!this.state.loading1) {
             this.setState({
                 loading1: true,
@@ -48,7 +48,7 @@ class MySearchPage extends React.Component{
     };
 
     callNYTimesSearch = (keyword) => {
-        const url = "http://localhost:9000/nytimesapi/search/" + keyword;
+        const url = "http://54.86.70.47:9000/nytimesapi/search/" + keyword;
         if (!this.state.loading2) {
             this.setState({
                 loading2: true,
