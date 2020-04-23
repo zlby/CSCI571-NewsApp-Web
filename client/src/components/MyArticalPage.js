@@ -2,7 +2,6 @@ import React from "react";
 import {Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll'
 import {Card, Col, Container, Image, Modal, Row, Collapse, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {MdBookmark, MdBookmarkBorder} from "react-icons/all";
-import MySectionTag from "./MySectionTag";
 import {toast, ToastContainer, Zoom} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -14,7 +13,6 @@ import {
     TwitterShareButton
 } from "react-share";
 import MyCommentBox from "./MyCommentBox";
-import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/all";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/all";
 import "../css/my_artical_page.css"
 import axios from "axios";
@@ -129,10 +127,10 @@ class MyArticalPage extends React.Component {
         }
         let mybookmark;
         if (this.state.bookmarked) {
-            mybookmark = <MdBookmark size={34} color='red' onClick={this.unmarkArticle} style={{cursor: "pointer"}} />;
+            mybookmark = <MdBookmark size={34} color='red' onClick={this.unmarkArticle} style={{cursor: "pointer"}} />
         }
         else {
-            mybookmark = <MdBookmarkBorder size={34} color='red' onClick={this.markArticle} style={{cursor: "pointer"}} />;
+            mybookmark = <MdBookmarkBorder size={34} color='red' onClick={this.markArticle} style={{cursor: "pointer"}} />
         }
         let descstr = this.state.newsInfo.desc;
         let start = 4;

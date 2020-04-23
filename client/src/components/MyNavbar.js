@@ -65,21 +65,23 @@ class MyNavbar extends React.Component {
         }
     }
 
+
     handleInputChange = (newValue) => {
         const inputValue = newValue.replace(/\W/g, '');
-        this.setState({inputValue});
+        this.setState({inputValue: inputValue});
         return inputValue;
     };
 
     handleSearch(optionSelected) {
         const keyword = optionSelected.value;
-
         this.setState({inputValue: keyword, searched: true});
     }
 
 
     render() {
+        let cur_url = this.props.url;
         let myredirect = <></>;
+
         if (this.state.searched) {
             this.setState({searched: false}, () => {
 
@@ -88,19 +90,23 @@ class MyNavbar extends React.Component {
             myredirect = <Redirect to={'/search/' + this.state.inputValue} />
         }
         let mybookmark;
-        if (window.location.pathname === '/favorite') {
+        if (cur_url === '/favorite') {
             mybookmark = <MdBookmark size={30} color='white' />
         }
         else {
             mybookmark = <MdBookmarkBorder size={30} color='white' />
         }
+
         let ishome = false;
         let isworld = false;
         let ispolitics = false;
         let isbusiness = false;
         let istech = false;
         let issport = false;
-        switch (window.location.pathname) {
+        let isartile = false;
+        let issearch = false;
+        let isfavorite = false;
+        switch (cur_url) {
             case '/home/all':
                 ishome = true;
                 break;
@@ -119,20 +125,53 @@ class MyNavbar extends React.Component {
             case '/home/sports':
                 issport = true;
                 break;
+            case '/favorite':
+                isfavorite = true;
         }
+        let searchkeyword = '';
+        if (cur_url.split('/')[1] === 'article') {
+            isartile = true;
+        }
+        if (cur_url.split('/')[1] === 'search') {
+            searchkeyword = cur_url.split('/')[2];
+            issearch = true;
+        }
+        else {
+            issearch = false;
+        }
+        console.log(searchkeyword);
+        // console.log(this.state.inputValue);
         return (
             <>
                 {myredirect}
             <Navbar className={"myNavbarClass"} variant="dark" collapseOnSelect expand="lg">
                 <div className={"mySearchBox"}>
-                    <AsyncSelect
-                        defaultValue={{label: "Enter keyword ..", value: 0}}
-                        cacheOptions
-                        loadOptions={this.loadOptions}
-                        defaultOptions
-                        onInputChange={this.handleInputChange}
-                        onChange={this.handleSearch}
-                    />
+                    {issearch ?
+                        <AsyncSelect
+                            // inputValue={{label: '', value: 0}}
+                            // defaultValue={{label: "Enter keyword ..", value: 0}}
+                            // defaultValue={searchkeyword}
+                            defaultValue={searchkeyword}
+                            cacheOptions
+                            loadOptions={this.loadOptions}
+                            defaultOptions
+                            onInputChange={this.handleInputChange}
+                            onChange={this.handleSearch}
+                            placeholder={"Enter keyword .."}
+                        />
+                        :
+                        <AsyncSelect
+                            // value={''}
+                            defaultValue={searchkeyword}
+                            cacheOptions
+                            loadOptions={this.loadOptions}
+                            defaultOptions
+                            onInputChange={this.handleInputChange}
+                            onChange={this.handleSearch}
+                            placeholder={"Enter keyword .."}
+                        />
+                    }
+
                 </div>
 
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
@@ -159,17 +198,27 @@ class MyNavbar extends React.Component {
                             </OverlayTrigger>{' '}
 
                         </Nav.Link>
-                        <Nav.Link disabled={true} style={{color: 'white'}} align={"left"}>NYTimes</Nav.Link>
-                        <Nav.Link align={"left"}>
+
+                        {
+                            (isfavorite || issearch || isartile ) ?
+                                <></>
+                                :
+                                <>
+                                <Nav.Link disabled={true} style={{color: 'white'}} align={"left"}>NYTimes</Nav.Link>
+                                <Nav.Link align={"left"}>
                             <Switch
-                                onChange={this.handleChange}
-                                checked={this.props.checked}
-                                checkedIcon={false}
-                                uncheckedIcon={false}
-                                onColor={'#29f'}
+                            onChange={this.handleChange}
+                            checked={this.props.checked}
+                            checkedIcon={false}
+                            uncheckedIcon={false}
+                            onColor={'#29f'}
                             />
-                        </Nav.Link>
-                        <Nav.Link align={"left"} disabled={true} style={{color: 'white'}}>Guardian</Nav.Link>
+                            </Nav.Link>
+                            <Nav.Link align={"left"} disabled={true} style={{color: 'white'}}>Guardian</Nav.Link>
+                                </>
+                        }
+
+
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

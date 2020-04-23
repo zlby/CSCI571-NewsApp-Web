@@ -30,11 +30,13 @@ class MyNewsCard extends React.Component {
 
     handleShow = (event) => {
         event.stopPropagation();
+        event.preventDefault();
         this.setState({show: true});
     };
 
     removeFromFavo = (event) => {
         event.stopPropagation();
+        event.preventDefault();
         let myFavo = JSON.parse(localStorage.getItem('favo'));
         delete myFavo[encodeURIComponent(this.props.newsInfo.newsid)];
         localStorage.setItem('favo', JSON.stringify(myFavo));
@@ -56,14 +58,7 @@ class MyNewsCard extends React.Component {
     };
 
     render() {
-        let myredirect = <></>;
-        if (this.state.redirect) {
-            this.setState({redirect: false}, () => {
 
-                }
-            );
-            myredirect = <Redirect to={'/article/' + encodeURIComponent(this.props.newsInfo.newsid)} />
-        }
         let deletecompo = <></>;
         let sourcetag = <></>;
         if (this.props.isFavo) {
@@ -72,7 +67,6 @@ class MyNewsCard extends React.Component {
         }
         return (
             <>
-                {myredirect}
                 <ToastContainer
                     position="top-center"
                     autoClose={2000}
@@ -85,8 +79,8 @@ class MyNewsCard extends React.Component {
                     pauseOnHover
                     transition={Zoom}
                 />
+                <a href={'/article/' + encodeURIComponent(this.props.newsInfo.newsid)} style={{textDecoration: "none", color: "black"}}>
                 <Container className={"myNewsCardContainer"} onClick={this.handleDetail}>
-
                     <Card className={"myNewsCard"}>
                         <Card.Title>
                             <div className={"myNewsCardTitleDiv"}>
@@ -98,8 +92,10 @@ class MyNewsCard extends React.Component {
                             <Card.Text>
                                 <div>
                                     <Row>
-                                        <Col><p align={"left"} style={{fontStyle: 'italic'}}>{this.props.newsInfo.date}</p></Col>
-                                        <Col>
+                                        <Col xs={4} sm={4} md={4} lg={4} xl={4} className={'datecol'}>
+                                            <p align={"left"} style={{fontStyle: 'italic'}} className={"newsdate"}>{this.props.newsInfo.date}</p>
+                                        </Col>
+                                        <Col xs={8} sm={8} md={8} lg={8} xl={8} className={'tagcol'}>
                                             <div align={"right"}>
                                                 <MySectionTag section={this.props.newsInfo.section}/>
                                                 {sourcetag}
@@ -111,6 +107,7 @@ class MyNewsCard extends React.Component {
                         </Card.Body>
                     </Card>
                 </Container>
+                </a>
                 <Modal show={this.state.show} onHide={this.handleHide}>
                     <Modal.Header closeButton>
                         <div>

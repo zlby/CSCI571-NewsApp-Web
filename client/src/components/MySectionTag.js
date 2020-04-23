@@ -2,7 +2,12 @@ import React from "react";
 
 function MySectionTag(props) {
     let mycolor;
+
     let sect = props.section;
+    if (sect === undefined) {
+        sect = 'none';
+    }
+    sect = sect.toLowerCase();
     if (sect === 'sport')
         sect = 'sports';
     switch (sect) {
@@ -35,15 +40,23 @@ function MySectionTag(props) {
             break;
     }
     return (
+
         <div style={{
             backgroundColor: mycolor,
-            width: 'fit-content',
+            maxWidth: 'max-content',
+            display: 'inline-block',
+            height: '20px',
+            marginLeft: '3px',
+            // width: '-moz-fit-content',
+            // whiteSpace: 'nowrap',
+            // display: 'table',
+            // height: '2px',
             borderRadius: '5px',
             textAlign: 'center',
             paddingLeft: '5px',
             paddingRight: '5px',
         }}>
-            <p style={{fontWeight: 'bold', color: 'white'}}>{sect.toUpperCase()} </p>
+            <p style={{fontWeight: 'bold', color: 'white', fontSize: '13px'}}>{sect.toUpperCase()} </p>
         </div>
     )
 }

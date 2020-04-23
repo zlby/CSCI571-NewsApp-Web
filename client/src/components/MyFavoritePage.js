@@ -25,10 +25,17 @@ class MyFavoritePage extends React.Component{
             }
         }
         news_group_list = news_group_list.map(item => <MyNewsCardGroup newsList={item} isFavo={true} fnUpdate={this.fnUpdate}/>);
+        if (news_group_list.length === 0) {
+            return (
+                <>
+                    <h2>You have no saved articles</h2>
+                </>
+            )
+        }
         return (
           <>
               <div>
-                  <h2 align={"left"}>Favorites</h2>
+                  <h2 align={"left"} style={{paddingLeft: '1rem'}}>Favorites</h2>
                   {news_group_list}
               </div>
           </>

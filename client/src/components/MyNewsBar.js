@@ -22,6 +22,7 @@ class MyNewsBar extends React.Component {
 
     handleShow = (event) => {
         event.stopPropagation();
+        event.preventDefault();
         this.setState({show: true});
     };
 
@@ -44,8 +45,9 @@ class MyNewsBar extends React.Component {
     render() {
         return (
             <>
-                <Card className={"outerCardInNewsBar"} onClick={this.handleClick}>
-                {/*<Card className={"outerCardInNewsBar"}>*/}
+                {/*<Card className={"outerCardInNewsBar"} onClick={this.handleClick}>*/}
+                <a href={'/article/' + encodeURIComponent(this.props.newsInfo.newsid)} style={{textDecoration: "none", color: "black"}}>
+                <Card className={"outerCardInNewsBar"} href>
                     <Container fluid={true} className={"containerInNewsBar"}>
                         <Row>
                             <Col xs={12} sm={12} md={12} lg={3} xl={3}>
@@ -67,6 +69,7 @@ class MyNewsBar extends React.Component {
                         </Row>
                     </Container>
                 </Card>
+                </a>
                 <Modal show={this.state.show} onHide={this.handleHide}>
                     <Modal.Header closeButton>
                         <h5>{this.props.newsInfo.title}</h5>

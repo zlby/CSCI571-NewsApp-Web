@@ -105,7 +105,7 @@ class MySearchPage extends React.Component{
         return (
             <div>
                 <div>
-                    <h2 align={"left"}>Results</h2>
+                    <h2 align={"left"} style={{paddingLeft: '1rem'}}>Results</h2>
                 </div>
                 {news_group_list}
                 {news_group_list2}
