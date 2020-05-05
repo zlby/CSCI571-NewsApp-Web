@@ -5,12 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 global.fetch = require('node-fetch');
+global.googleTrends = require('google-trends-api');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testAPIRouter = require("./routes/testAPI");
 var guardianAPIRouter = require('./routes/guardianAPI');
 var nytimesAPIRouter = require('./routes/nytimesAPI');
+var trendAPIRouter = require('./routes/gtrendsAPI');
 
 var app = express();
 
@@ -30,6 +33,7 @@ app.use('/users', usersRouter);
 app.use('/testapi', testAPIRouter);
 app.use('/guardianapi', guardianAPIRouter);
 app.use('/nytimesapi', nytimesAPIRouter);
+app.use('/trendapi', trendAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -6,6 +6,7 @@ const url_section_prefix = 'https://content.guardianapis.com/';
 const url_section_suffix = '?api-key=decaa709-0ef5-49a5-a6b1-754b54ac4052&show-blocks=all';
 const url_search_prefix = 'https://content.guardianapis.com/search?q=';
 const url_search_suffix = '&api-key=decaa709-0ef5-49a5-a6b1-754b54ac4052&show-blocks=all';
+const url_newest = 'https://content.guardianapis.com/search?order-by=newest&show-fields=starRating,headline,thumbnail,short-url&api-key=decaa709-0ef5-49a5-a6b1-754b54ac4052';
 let jsonObj;
 
 
@@ -41,9 +42,19 @@ router.get('/search/:skeyword', function (req, res) {
         .catch(err => err);
 });
 
-router.get('/detailed/:sid(*)', function(req, res){
+router.get('/detailed/:sid(*)', function(req, res) {
     jsonObj = {};
     const url_detail = url_section_prefix + req.params.sid + url_section_suffix;
+    fetch(url_detail)
+        .then(res => res.text())
+        .then(res => jsonObj = JSON.parse(res))
+        .then(() => res.json(jsonObj))
+        .catch(err => err);
+});
+
+router.get('/newest/top', function(req, res) {
+    jsonObj = {};
+    const url_detail = url_newest;
     fetch(url_detail)
         .then(res => res.text())
         .then(res => jsonObj = JSON.parse(res))
