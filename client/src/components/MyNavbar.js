@@ -55,7 +55,7 @@ class MyNavbar extends React.Component {
         if (input === '')
             return;
         const url = 'https://api.cognitive.microsoft.com/bing/v7.0/suggestions?q=' + input;
-        const apiKey = '6c8e9f153d324c68923f127a6c7e8824';
+        const apiKey = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
         try {
             const resp = await axios.get(url, {headers: {'Ocp-Apim-Subscription-Key': apiKey}});
             const resultsRaw = resp.data.suggestionGroups[0].searchSuggestions;
