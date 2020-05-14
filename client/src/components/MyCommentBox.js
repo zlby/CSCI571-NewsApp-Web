@@ -6,7 +6,7 @@ class MyCommentBox extends React.Component{
         super();
     }
     componentDidMount() {
-        this.removeCommentBox = commentBox("5754892564037632-proj", {
+        this.removeCommentBox = commentBox("XXXXXXXXXXXX-proj", {
             createBoxUrl(boxId, pageLocation) {
                 pageLocation.search = ''; // removes query string!
                 pageLocation.hash = boxId;
