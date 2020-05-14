@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const ny_times_key = 'TGX7m7vFRc5qqW24NDk4WLH5nL7FmD7n';
+const ny_times_key = 'XXXXXXXXXXXX';
 const url_home = 'https://api.nytimes.com/svc/topstories/v2/home.json?api-key=' + ny_times_key;
 const url_section_prefix = 'https://api.nytimes.com/svc/topstories/v2/';
 const url_section_suffix = '.json?api-key=' + ny_times_key;
