@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-const url_home = 'https://content.guardianapis.com/search?api-key=decaa709-0ef5-49a5-a6b1-754b54ac4052&section=(sport|business|technology|politics)&show-blocks=all';
+const url_home = 'https://content.guardianapis.com/search?api-key=XXXXXXXXXXXXXXXX&section=(sport|business|technology|politics)&show-blocks=all';
 const url_section_prefix = 'https://content.guardianapis.com/';
-const url_section_suffix = '?api-key=decaa709-0ef5-49a5-a6b1-754b54ac4052&show-blocks=all';
+const url_section_suffix = '?api-key=XXXXXXXXXXXX&show-blocks=all';
 const url_search_prefix = 'https://content.guardianapis.com/search?q=';
-const url_search_suffix = '&api-key=decaa709-0ef5-49a5-a6b1-754b54ac4052&show-blocks=all';
-const url_newest = 'https://content.guardianapis.com/search?order-by=newest&show-fields=starRating,headline,thumbnail,short-url&api-key=decaa709-0ef5-49a5-a6b1-754b54ac4052';
+const url_search_suffix = '&api-key=XXXXXXXXXXXXXXXX&show-blocks=all';
+const url_newest = 'https://content.guardianapis.com/search?order-by=newest&show-fields=starRating,headline,thumbnail,short-url&api-key=XXXXXXXXXXXX';
 let jsonObj;
 
 
